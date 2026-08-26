@@ -1,0 +1,989 @@
+/* ========================================
+   GRUNDGERÜST
+======================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(0, 0%, 70%) #fafafa;
+}
+
+body {
+  margin: 0;
+  font-family: "proxima-nova", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: hsl(0, 1%, 20%);
+  background: hsl(0, 0%, 98%);
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+figure {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-wrap: balance;
+  text-transform: uppercase;
+   letter-spacing: .03rem;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+figure {
+  margin: 0;
+}
+
+/* ========================================
+   GEMEINSAME LAYOUT-ELEMENTE
+======================================== */
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  gap: 3rem;
+}
+
+.card {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.container > .content-image {
+  flex: 0 1 400px;
+  min-width: 0;
+}
+
+.content-image {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid hsl(220, 20%, 88%);
+}
+
+.header-thin {
+  font-weight: 300;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(0, 0%, 98%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(0, 0%, 70%);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(0, 0%, 45%);
+}
+
+/* ========================================
+   HEADER + HAUPTNAVIGATION
+======================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1.5rem 2.5rem;
+
+  background-color: hsl(0, 0%, 100%);
+  border-bottom: 1px solid hsl(220, 20%, 88%);
+}
+
+.logo {
+  color: hsl(0, 1%, 20%);
+
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.main-nav {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.main-nav ul,
+.site-nav ul,
+.footer-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.main-nav a {
+  color: hsl(0, 0%, 6%);
+  font-weight: 400;
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    font-weight 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: hsl(0, 0%, 6%);
+  font-weight: 700;
+}
+
+/* ========================================
+   FESTE 01–08 NAVIGATION
+======================================== */
+
+.site-nav {
+  position: fixed;
+  top: 45%;
+  left: 2.5rem;
+  z-index: 50;
+  transform: translateY(-50%);
+  background: transparent;
+}
+
+.site-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  padding: 1rem 1.5rem 1rem 0;
+
+  border-right: 1px solid hsl(0, 0%, 6%);
+}
+
+.site-nav a {
+  display: inline-block;
+
+  min-width: 1.5rem;
+
+  color: hsl(0, 0%, 6%);
+
+  font-weight: 300;
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    font-weight 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: hsl(0, 0%, 6%);
+  font-weight: 700;
+}
+
+/* aktuell ausgewählte Zahl */
+.site-nav a.is-active {
+  color: hsl(0, 0%, 6%);
+  font-weight: 700;
+}
+
+/* bereits zuvor geklickte Zahlen */
+.site-nav a.is-visited {
+  color: hsl(0, 0%, 58%);
+  font-weight: 700;
+}
+
+/* beim Hover wird auch eine bereits besuchte Zahl wieder dunkel */
+.site-nav a.is-visited:hover,
+.site-nav a.is-visited:focus-visible {
+  color: hsl(0, 0%, 6%);
+}
+
+/* ========================================
+   HERO
+======================================== */
+
+.hero {
+  display: flex;
+  align-items: center;
+
+  min-height: calc(100vh - 73px);
+
+  padding: 5.5rem 2.5rem 5.5rem 8rem;
+
+  background-color: hsl(0, 0%, 98%);
+}
+
+.hero .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  max-width: 1100px;
+
+  gap: 5rem;
+
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.hero .content-image {
+  flex: 0 1 420px;
+
+  width: min(420px, 38vw);
+  max-width: 420px;
+}
+
+.hero-text {
+  max-width: 38rem;
+}
+
+/* ========================================
+   TRENNER (das sollte eigentlich eine Intro-Section werden, aber ich hatte vergessen den Text dazu, zu erstellen)
+======================================== */
+
+.trenner {
+  height: 4rem;
+  background-color: hsl(0, 0%, 15%);
+}
+
+
+/* ========================================
+   THEMENSEKTIONEN
+======================================== */
+
+.themecards-dark,
+.themecards-bright {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 85vh;
+
+  padding: 5.5rem 5.5rem 5.5rem 8rem;
+}
+
+.themecards-dark {
+  background-color: hsl(0, 0%, 88%);
+}
+
+.themecards-bright {
+  background-color: hsl(0, 0%, 98%);
+}
+
+/* Bild und Text starten auf gleicher Höhe */
+.themecards-dark .container,
+.themecards-bright .container {
+  align-items: flex-start;
+}
+
+/* Dunkle Sektionen: Text bleibt auf Desktop links, obwohl das h2 im HTML zuerst steht */
+.themecards-dark .card {
+  order: -1;
+}
+
+/* eigener Bildcontainer für die h2-Überlagerung */
+.section-image {
+  position: relative;
+
+  flex: 0 1 400px;
+  width: 100%;
+  max-width: 400px;
+  min-width: 0;
+}
+
+.section-image .content-image {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Etwas dunklerer Bildrand auf den grauen Sektionen */
+.themecards-dark .content-image {
+  border-color: hsl(0, 0%, 72%);
+}
+
+/* h2 standardmäßig oben links auf dem Bild */
+.section-image h2 {
+  position: absolute;
+
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+
+  margin: 0;
+
+  color: hsl(0, 1%, 20%);
+}
+
+/* Für besseren Bildkontrast rechts ausrichten */
+#kunst .section-image h2,
+#psychologie .section-image h2 {
+  right: 1rem;
+  left: auto;
+}
+
+.keywords {
+  margin-bottom: 0;
+}
+
+
+/* ========================================
+   TEXT KÜRZEN + WEITERLESEN
+======================================== */
+
+.text-expand {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-text {
+  display: -webkit-box;
+  overflow: hidden;
+
+  margin-bottom: 0;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+}
+
+.text-expand.is-open .section-text {
+  display: block;
+}
+
+.read-more {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  gap: 0.4rem;
+
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+
+  border: 0;
+  background: none;
+
+  color: hsl(0, 0%, 6%);
+
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 400;
+  text-transform: none;
+
+  cursor: pointer;
+}
+
+.read-more-arrow {
+  font-size: 0.9rem;
+  line-height: 1;
+
+  transition: transform 0.3s ease;
+}
+
+.text-expand.is-open .read-more-arrow {
+  transform: rotate(180deg);
+}
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.button {
+  display: inline-block;
+
+  margin-top: 1.5rem;
+  padding: 1rem;
+
+  color: hsl(0, 0%, 98%);
+  background-color: hsl(0, 0%, 15%);
+  border: 1px solid hsl(0, 0%, 15%);
+  border-radius: 0.4rem;
+
+  text-decoration: none;
+
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  color: hsl(0, 0%, 15%);
+  background-color: transparent;
+}
+
+
+/* ========================================
+   BUCH
+======================================== */
+
+.buch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 80vh;
+
+  padding: 5.5rem 5.5rem 5.5rem 8rem;
+
+  background-color: hsl(0, 0%, 98%);
+}
+
+.buch figure {
+  flex: 0 1 350px;
+
+  width: 100%;
+  max-width: 350px;
+
+  margin: 0;
+}
+
+.buch figure .content-image {
+  width: 100%;
+  max-width: 100%;
+}
+
+.book-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1.5rem 2.5rem;
+
+  background-color: hsl(0, 0%, 100%);
+  border-top: 1px solid hsl(220, 20%, 88%);
+}
+
+.footer-logo {
+  flex-shrink: 0;
+}
+
+.footer-nav {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.footer-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.footer-nav a,
+.footer-link {
+  padding: 0;
+
+  color: hsl(0, 0%, 6%);
+  background: none;
+  border: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    font-weight 0.2s ease;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus-visible,
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: hsl(0, 0%, 6%);
+  font-weight: 700;
+}
+
+
+/* ========================================
+   KONTAKT-MODAL
+======================================== */
+
+.contact-dialog {
+  width: min(90vw, 620px);
+  max-height: 90vh;
+
+  margin: auto;
+  padding: 0;
+
+  color: hsl(0, 1%, 20%);
+  background-color: #fafafa;
+
+  border: 1px solid hsl(220, 20%, 82%);
+}
+
+.contact-dialog::backdrop {
+  background: rgb(0 0 0 / 45%);
+}
+
+.contact-panel {
+  position: relative;
+
+  padding: 3rem;
+}
+
+.contact-close {
+  position: absolute;
+
+  top: 1.2rem;
+  right: 1.4rem;
+
+  padding: 0;
+
+  color: hsl(0, 0%, 15%);
+  background: none;
+  border: 0;
+
+  font-family: inherit;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.contact-close:hover,
+.contact-close:focus-visible {
+  font-weight: 700;
+}
+
+.contact-heading {
+  max-width: 29rem;
+
+  margin-bottom: 2.5rem;
+}
+
+.contact-kicker {
+  margin-bottom: 0.6rem;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.contact-dialog h2 {
+  margin-bottom: 1rem;
+
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-field label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+
+  padding: 0.6rem 0 0.7rem;
+
+  color: inherit;
+  background: transparent;
+
+  border: 0;
+  border-bottom: 1px solid hsl(0, 0%, 70%);
+  border-radius: 0;
+  outline: none;
+
+  font: inherit;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-bottom-color: hsl(0, 0%, 10%);
+}
+
+.contact-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contact-submit {
+  margin-top: 0;
+
+  font: inherit;
+  cursor: pointer;
+}
+
+.form-status {
+  min-height: 1.5em;
+  margin-bottom: 0;
+
+  font-size: 0.9rem;
+}
+
+
+/* ========================================
+   BURGER-MENÜ
+======================================== */
+
+
+.menu-button {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  border: 0;
+  background: none;
+
+  cursor: pointer;
+}
+
+.menu-button span {
+  display: block;
+
+  width: 100%;
+  height: 2px;
+
+  background-color: hsl(0, 0%, 7%);
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media screen and (max-width: 800px) {
+
+  .container {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 600px;
+    gap: 2.5rem;
+  }
+
+
+  /* Hero bleibt zunächst zweispaltig */
+
+  .hero .container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 750px;
+  }
+
+
+  /* feste Navigation bleibt sichtbar */
+
+  .site-nav {
+    left: 1.5rem;
+  }
+
+  .site-nav ul {
+    gap: 1.25rem;
+    padding-right: 1rem;
+  }
+
+
+  /* Hero behält Platz für die Navigation */
+
+  .hero {
+    padding-right: 2.5rem;
+    padding-left: 6.5rem;
+  }
+
+
+  /* Hero-Bild wird kleiner */
+
+  .hero .content-image {
+    flex: 0 1 300px;
+
+    width: min(300px, 36vw);
+    max-width: 300px;
+  }
+
+
+  /* normale Sections */
+
+  .themecards-dark,
+  .themecards-bright,
+  .buch {
+    padding-right: 2.5rem;
+    padding-left: 6.5rem;
+  }
+
+
+  /* Bild immer vor dem Text */
+
+  .themecards-dark .card {
+    order: 0;
+  }
+
+  .section-image {
+    order: -1;
+
+    width: 100%;
+    max-width: 600px;
+  }
+
+
+  /* Buch */
+
+  .buch figure {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+
+/* ========================================
+   HERO UMBRUCH
+======================================== */
+
+@media screen and (max-width: 650px) {
+
+  .site-nav {
+    display: none;
+  }
+
+  .hero .container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero .content-image {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media screen and (max-width: 575px) {
+
+  body {
+    font-size: 16px;
+  }
+
+
+  /* HEADER */
+
+  .site-header {
+    padding: 1rem 1.25rem;
+  }
+
+  /* Desktop-Menü ausblenden */
+
+  .main-nav {
+    display: none;
+  }
+
+  /* Burger anzeigen */
+
+  .menu-button {
+    display: flex;
+  }
+
+  /* geöffnetes Burger-Menü */
+
+  .main-nav.is-open {
+    position: absolute;
+    top: 100%;
+    right: 0;
+
+    display: block;
+    width: 100%;
+
+    background-color: hsl(0, 0%, 98%);
+    border-bottom: 1px solid hsl(220, 20%, 88%);
+  }
+
+  .main-nav.is-open ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    padding: 0 1.25rem;
+  }
+
+  .main-nav.is-open li {
+    padding: 1rem 0;
+
+    border-bottom: 1px solid hsl(220, 20%, 88%);
+  }
+
+
+  /* HERO */
+
+  .hero {
+    min-height: auto;
+
+    padding: 5rem 1.25rem;
+  }
+
+
+  /* THEMENSEKTIONEN */
+
+  .themecards-dark,
+  .themecards-bright,
+  .buch {
+    min-height: auto;
+
+    padding: 5rem 1.25rem;
+  }
+
+  .container {
+    gap: 2rem;
+  }
+
+
+  /* Weiterlesen */
+
+  .read-more {
+    margin-bottom: 1.5rem;
+  }
+
+
+  /* BUCH */
+
+  .buch figure {
+    width: 100%;
+    max-width: 100%;
+  }
+
+
+  /* KONTAKT-MODAL */
+
+  .contact-panel {
+    padding: 2.5rem 1.5rem 2rem;
+  }
+
+  .contact-dialog {
+    width: calc(100vw - 2rem);
+  }
+
+
+  /* FOOTER */
+
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+
+    padding: 1.25rem;
+  }
+
+  .footer-nav {
+    width: 100%;
+  }
+
+  .footer-nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+
+    gap: 0.75rem 1.25rem;
+  }
+}
