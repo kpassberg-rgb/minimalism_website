@@ -59,7 +59,7 @@ h3 {
   line-height: 1.2;
   text-wrap: balance;
   text-transform: uppercase;
-   letter-spacing: .03rem;
+  letter-spacing: .03rem;
 }
 
 img {
@@ -89,7 +89,7 @@ figure {
   min-width: 0;
 }
 
-.container > .content-image {
+.container>.content-image {
   flex: 0 1 400px;
   min-width: 0;
 }
@@ -288,15 +288,6 @@ figure {
 
 .hero-text {
   max-width: 38rem;
-}
-
-/* ========================================
-   TRENNER (das sollte eigentlich eine Intro-Section werden, aber ich hatte vergessen den Text dazu, zu erstellen)
-======================================== */
-
-.trenner {
-  height: 4rem;
-  background-color: hsl(0, 0%, 15%);
 }
 
 
